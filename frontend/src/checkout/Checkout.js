@@ -1,0 +1,41 @@
+import React from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+
+export class CheckOut extends React.Component {
+    handleSubmit = (fields) => {
+            console.log(fields);
+            axios.post(`http://localhost:8081/checkOut?pass=${fields.pass}`)
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                })
+    }
+    render() {
+        return (
+            <Formik
+                initialValues={{
+                    pass: ''
+                }}
+                validationSchema={Yup.object().shape({
+                    pass: Yup.string()
+                        .required('pass Id is required')
+                })}
+                onSubmit={this.handleSubmit}
+                render={({ errors, status, touched }) => (
+                    <Form>
+                        <div className="form-group">
+                            <label htmlFor="pass">Pass Id:</label>
+                            <Field name="pass" type="text" className={'form-control' + (errors.pass && touched.pass ? ' is-invalid' : '')} />
+                            <ErrorMessage name="pass" component="div" className="invalid-feedback" />
+                        </div>
+                        <div className="form-group">
+                            <button type="submit" className="btn btn-primary mr-2">Check Out</button>
+                        </div>
+                    </Form>
+                )}
+            />
+        )
+    }
+}
