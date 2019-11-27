@@ -1,26 +1,22 @@
 import React from 'react';
 import './App.css';
-import { CheckIn } from './checkin/CheckIn.js';
-import { CheckOut } from './checkout/Checkout.js';
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import { Visitor } from './Visitor/Visitor.js';
 import { Host } from './Host/Host.js';
 
 function App() {
   return (
     <div className="App">
-      <div class="container" id='mainPage'>
-      <h3>Please provide your Details</h3>
-        <div class="row">
-          <div class="col-sm">
-            <CheckIn/>
-          </div>
-          <div class="col-sm">
-            <div class="row-sm">
-              <CheckOut/>
-            </div>
-            <div class="row-sm">
-              <Host/>
-            </div>
-          </div>
+      <div class="split left">
+        <div class="centered">
+          <h2><Link to="/visitor">Visitor</Link></h2>
+          <p>Some text.</p>
+        </div>
+      </div>
+      <div class="split right">
+        <div class="centered">
+          <h2><Link to="/host">Host</Link></h2>
+          <p>Some text.</p>
         </div>
       </div>
     </div>

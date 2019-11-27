@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -31,7 +32,10 @@ export class Host extends React.Component {
     }
     render() {
         return (
-            <Formik
+            <div class="host">
+                <h6><Link to="/">Back to Main Page</Link></h6>
+                <div class="container" id='mainPage'>
+                <Formik
                 initialValues={{
                     name: '',
                     email: '',
@@ -78,6 +82,8 @@ export class Host extends React.Component {
                     </Form>
                 )}
             />
+            </div>
+            </div>
         )
     }
 }

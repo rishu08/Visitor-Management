@@ -12,3 +12,10 @@ code {
     monospace;
 }
 
+.visitor {
+  background-color: #e3f197;
+}
+
+.host {
+  background-color: #FC9D8B;
+}
