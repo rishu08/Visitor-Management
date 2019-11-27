@@ -12,11 +12,12 @@ const Schema = mongoose.Schema;
 
 // create a schema
 const visitorSchema = new Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  _id: Schema.Types.ObjectId,
   firstName: String,
   lastName: String,
   email: String,
   mobile: String,
+  host: Schema.Types.ObjectId,
   checkIn: { type : Date, default: Date.now },
   checkOut: Date
 });

@@ -4,12 +4,29 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 export class CheckIn extends React.Component {
+    constructor(props) 
+    { 
+        super(props); 
+        this.state = { hosts : [] }; 
+    } 
+    componentDidMount() {
+        console.log('in mount');
+        axios.post(`http://localhost:8081/getHosts`)
+            .then(res => {
+                console.log(res.data);
+                this.setState({hosts: res.data});
+            }).catch(err=>{
+                console.log(err);
+            });
+    }
     handleSubmit = (fields) => {
             console.log(fields);
-            axios.post(`http://localhost:8081/generatePass?firstName=${fields.firstName}&lastName=${fields.lastName}&email=${fields.email}&mobile=${fields.mobile}`)
+            axios.post(`http://localhost:8081/generatePass?firstName=${fields.firstName}&lastName=${fields.lastName}&email=${fields.email}&mobile=${fields.mobile}&host=${fields.host}`)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
+                }).catch(err=>{
+                    console.log(err);
                 })
     }
     render() {
@@ -19,7 +36,8 @@ export class CheckIn extends React.Component {
                     firstName: '',
                     lastName: '',
                     email: '',
-                    mobile: ''
+                    mobile: '',
+                    host:''
                 }}
                 validationSchema={Yup.object().shape({
                     firstName: Yup.string()
@@ -54,6 +72,16 @@ export class CheckIn extends React.Component {
                             <label htmlFor="mobile">Mobile</label>
                             <Field name="mobile" type="text" className={'form-control' + (errors.mobile && touched.mobile ? ' is-invalid' : '')} />
                             <ErrorMessage name="mobile" component="div" className="invalid-feedback" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="host">Host</label>
+                            <Field component='select' className={'form-control' + (errors.host && touched.host ? ' is-invalid' : '')} name='host'>
+                                <option value="" label="Select a Host" />
+                                {this.state.hosts.map(host => (
+                                    <option key={host._id} value={host._id}>{host.name}-{host.email}</option>
+                                ))}
+                            </Field>
+                            <ErrorMessage name="host" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
                             <button type="submit" className="btn btn-primary mr-2">Genarate Pass</button>

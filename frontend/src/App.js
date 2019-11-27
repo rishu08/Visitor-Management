@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { CheckIn } from './checkin/CheckIn.js';
 import { CheckOut } from './checkout/Checkout.js';
+import { Host } from './Host/Host.js';
 
 function App() {
   return (
@@ -13,7 +14,12 @@ function App() {
             <CheckIn/>
           </div>
           <div class="col-sm">
-            <CheckOut/>
+            <div class="row-sm">
+              <CheckOut/>
+            </div>
+            <div class="row-sm">
+              <Host/>
+            </div>
           </div>
         </div>
       </div>

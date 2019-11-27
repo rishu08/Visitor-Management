@@ -1,16 +1,16 @@
 var mongoose = require('mongoose');
 var Visitor  = require('./models/visitorModel.js');
+var Host = require('./models/hostModel.js');
 var express = require('express');
 var app = express();
 var nodemailer = require('nodemailer');
+var mailService = require('./generateMail.js');
+var messageService = require('./generateMessage.js');
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  host: 'smtp.gmail.com',
-  auth: {
-    user: 'rg081999@gmail.com',
-    pass: 'gupta@1999'
-  }
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 app.get('/', function (req, res) {
@@ -24,70 +24,84 @@ app.post('/generatePass', function (req, res) {
        firstName: req.query.firstName,
        lastName: req.query.lastName,
        email : req.query.email,
-       mobile: req.query.mobile
+       mobile: req.query.mobile,
+       host: req.query.host
      });
 
      newRecord.save(function(err) {
-         if (err) throw err;
+        if (err) {
+          console.log(error);
+          throw err;
+         }
          console.log(newRecord);
          console.log('Visitor successfully added.');
+         //Send visitor the mail
+         try{
+           mailService.passIdMail(newRecord);
+           mailService.visitorDetailsToHost(newRecord, Host);
+           messageService.visitorDetailsToHost(newRecord, Host);
+         }
+         catch(error) {
+           console.log(error);
+         }
        });
   res.send('Pass Generated');
-  var mailOptions = {
-    from: 'rg081999@gmail.com',
-    to: req.query.email,
-    subject: 'Pass Id',
-    html: `Hi,
-          <br>Your pass Id has been generated.
-          <br>Pass Id: ${newRecord._id}.
-          <br>Please use this at the time of checkout<br>
-          Thank you`
-  };
-  
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
+  //handle this in if case
 });
 
 app.post('/checkOut', function (req, res) {
   console.log(req.query);
   console.log(Date.now());
   let currentTime = Date.now();
-  Visitor.findOneAndUpdate({ _id: req.query.pass }, {$set:{checkOut:currentTime}}, {new: true}, (err, doc) => {
+  Visitor.findOneAndUpdate({ _id: req.query.pass }, {$set:{checkOut:currentTime}}, {new: true}, (err, visitor) => {
     if (err) {
         console.log("Something wrong when updating data!");
     }
-    console.log(doc);
-    var mailOptions = {
-      from: 'rg081999@gmail.com',
-      to: doc.email,
-      subject: 'Visiting Details',
-      html: `Hi,
-            <br>Thank you for visiting us.
-            <br>Your visit details are as follows:
-            <br>1.Name: ${doc.firstName} ${doc.lastName}
-            <br>2. Phone: ${doc.mobile}
-            <br>3. Check-in time: ${doc.checkIn}
-            <br>4. Check-out time: ${doc.checkOut}
-            <br>5. Host name:
-            <br>6. Address visited:
-            <br>We wish you visit us soon.
-            Thank you`
-    };
-    
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('CheckOut Email sent: ' + info.response);
+    else {
+      try {
+        mailService.visitorDetailsMailToVisitor(visitor,Host);
       }
-    });
-});
+      catch(error) {
+        console.log(error);
+      }
+    }
+  });
 res.send('Visitor has checked out successfully');
+});
+
+
+app.post('/getHosts', function (req, res) {
+  Host.find((err, hosts) => {
+    if(err)
+    {
+      console.log('cannot get hosts');
+    }
+    console.log(hosts);
+    res.send(hosts);
+  });
+});
+
+app.post('/addHost', function (req, res) {
+  console.log(req.query);
+  var newHost = new Host ({
+       _id: new mongoose.Types.ObjectId(),
+       name: req.query.name,
+       email : req.query.email,
+       mobile: req.query.mobile,
+       address: req.query.address
+     });
+
+     newHost.save(function(err) {
+        if (err) {
+          console.log(error);
+          throw err;
+         }
+         console.log(newHost);
+         console.log('Host successfully added.');
+         //add host's mobile to twilio
+         messageService.addHostMobile(newHost);
+       });
+  res.send('Host successfully added.');
 });
 
 var server = app.listen(8081, function () {
@@ -95,4 +109,4 @@ var server = app.listen(8081, function () {
    var port = server.address().port
    
    console.log("Example app listening at http://%s:%s", host, port)
-})
+});
