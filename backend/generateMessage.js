@@ -29,7 +29,7 @@ function visitorDetailsToHost(newRecord,Host) {
 function addHostMobile(host) {
     client.validationRequests
        .create({friendlyName: host.name, phoneNumber: `+${host.mobile}`})
-       .then(validation_request => console.log(validation_request.friendlyName))
+       .then(validation_request => console.log('mobile successfully added' +validation_request.friendlyName))
        .catch(err=>console.log(err)); 
 }
 
