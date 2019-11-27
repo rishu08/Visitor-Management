@@ -3,9 +3,12 @@ const authToken = '47c2d166140f560f6afffe2818350efb';
 const client = require('twilio')(accountSid, authToken);
 
 function visitorDetailsToHost(newRecord,Host) {
-    Host.findOne({_id: newRecord.host}, (err,host)=> {
-        if(err) {
-          console.log(err);
+    Host.findOne({_id: newRecord.host}, (error,host)=> {
+        if(error) {
+            throw new Error(error);
+        }
+        else if(!host) {
+            throw new Error('No Host found');
         }
         else {
           client.messages.create({
@@ -21,16 +24,23 @@ function visitorDetailsToHost(newRecord,Host) {
               to: `+${host.mobile}`
             })
             .then(message => console.log(message.sid))
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                throw new Error(error);
+            });
             }
       });
 }
 
+//function to add host mobile to twilio account(Only number added in twilio account can be used to send or receive sms in trial version)
 function addHostMobile(host) {
     client.validationRequests
        .create({friendlyName: host.name, phoneNumber: `+${host.mobile}`})
        .then(validation_request => console.log('mobile successfully added' +validation_request.friendlyName))
-       .catch(err=>console.log(err)); 
+       .catch(error =>{
+           console.log(error);
+           throw new Error(error);
+        }); 
 }
 
 module.exports.visitorDetailsToHost = visitorDetailsToHost;

@@ -9,6 +9,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+//function to mail PassId to visitor Which will be used at the time of checkout
 function passIdMail(newRecord){
     var mailOptions = {
         from: 'rg081999@gmail.com',//represents company mail.
@@ -24,6 +25,7 @@ function passIdMail(newRecord){
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
             console.log(error);
+            throw new Error(error);
         } else {
             console.log('Email sent to visitor for PassId' + info.response);
         }
@@ -32,10 +34,13 @@ function passIdMail(newRecord){
 
 function visitorDetailsToHost(newRecord, Host){
     
-    Host.findOne({ _id: newRecord.host }, (err, host) => {
-        if (err) {
-            console.log("host is not found!");
-            throw err;
+    Host.findOne({ _id: newRecord.host }, (error, host) => {
+        if (error) {
+            console.log(error);
+            throw new Error(error);
+        }
+        else if(!host) {
+          throw new Error('No host found');
         }
         var hostMail = host.email;
         
@@ -55,6 +60,7 @@ function visitorDetailsToHost(newRecord, Host){
           transporter.sendMail(mailOptions, function(error, info){
             if (error) {
               console.log(error);
+              throw new Error(error);
             } else {
               console.log('Email sent to host: ' + info.response);
             }
@@ -62,12 +68,17 @@ function visitorDetailsToHost(newRecord, Host){
     });
 }
 
+
+//function called when visitor checks out and gets his visiting details in mail
 function visitorDetailsMailToVisitor(visitor, Host){
     
-    Host.findOne({ _id: visitor.host }, (err, host) => {
-        if (err) {
-            console.log("host is not found!");
-            throw err;
+    Host.findOne({ _id: visitor.host }, (error, host) => {
+        if (error) {
+            console.log(error);
+            throw new Error(error);
+        }
+        else if(!host) {
+          throw new Error('No host found');
         }
         var mailOptions = {
             from: 'rg081999@gmail.com',
@@ -89,6 +100,7 @@ function visitorDetailsMailToVisitor(visitor, Host){
           transporter.sendMail(mailOptions, function(error, info){
             if (error) {
               console.log(error);
+              throw new Error(error);
             } else {
               console.log('CheckOut Email sent: ' + info.response);
             }
