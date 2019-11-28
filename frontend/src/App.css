@@ -68,3 +68,34 @@ h3 {
   width: 150px;
   border-radius: 50%;
 }
+
+.button {
+  display: inline-block;
+  width: 200px;
+  height: 90px;
+  padding: 15px 25px;
+  margin: 180px;
+  margin-top: 80px;
+  font-size: 32px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 7px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.text{
+  margin-top: 180px;
+}

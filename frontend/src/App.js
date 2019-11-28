@@ -7,18 +7,10 @@ import { Host } from './Host/Host.js';
 function App() {
   return (
     <div className="App">
-      <div class="split left">
-        <div class="centered">
-          <h2><Link to="/visitor">Visitor</Link></h2>
-          <p>Some text.</p>
-        </div>
-      </div>
-      <div class="split right">
-        <div class="centered">
-          <h2><Link to="/host">Host</Link></h2>
-          <p>Some text.</p>
-        </div>
-      </div>
+      <h1 class="text"> I am a ...</h1>
+          <Link to="/visitor"><button class="button" >Visitor</button></Link>
+          <Link to="/host"><button class="button" >Host</button></Link>
+       
     </div>
   );
 }

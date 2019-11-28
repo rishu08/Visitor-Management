@@ -33,7 +33,7 @@ export class Host extends React.Component {
     render() {
         return (
             <div class="host">
-                <h6><Link to="/">Back to Main Page</Link></h6>
+                <Link to="/"><button class="button_in" >Main Page</button></Link>
                 <div class="container" id='mainPage'>
                 <Formik
                 initialValues={{
