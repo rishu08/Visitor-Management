@@ -17,9 +17,9 @@ export class CheckIn extends React.Component {
                 //console.log(res.data);
                 this.setState({hosts: res.data});
             }).catch(err=>{
-                console.log(err);
-                toast.error("Error in getting hosts- "+err, {
-                    position: toast.POSITION.TOP_LEFT
+                console.log(err.response.data);
+                toast.error(err.response.data, {
+                    position: toast.POSITION.TOP_RIGHT
                 });
             });
     }
@@ -32,9 +32,9 @@ export class CheckIn extends React.Component {
                         position: toast.POSITION.TOP_RIGHT
                       });
                 }).catch(err=>{
-                    console.log(err);
-                    toast.error("Error in generating pass- "+err, {
-                        position: toast.POSITION.TOP_LEFT
+                    console.log(err.response.data);
+                    toast.error("Error in generating pass- "+err.response.data, {
+                        position: toast.POSITION.TOP_RIGHT
                     });
                 })
     }

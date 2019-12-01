@@ -14,9 +14,9 @@ export class CheckOut extends React.Component {
                         position: toast.POSITION.TOP_RIGHT
                     });
                 }).catch(err=>{
-                    console.log(err);
-                    toast.error("Error in checking out- "+err, {
-                        position: toast.POSITION.TOP_LEFT
+                    console.log(err.response.data);
+                    toast.error(err.response.data, {
+                        position: toast.POSITION.TOP_RIGHT
                     });
                 });
     }

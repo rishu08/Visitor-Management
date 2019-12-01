@@ -13,8 +13,7 @@ function App() {
 <div class="container register">
                 <div class="row">
                     <div class="col-md-3 register-left">
-                        <h3>Welcome</h3>
-                        <p>You are 30 seconds away from earning your own money!</p>
+                        <h3>Welcome Visitor</h3>
                     </div>
                     <div class="col-md-9 register-right">
                     <Link to="/host"><button class="button" >Host</button></Link>

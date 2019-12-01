@@ -9,30 +9,21 @@ export class Host extends React.Component {
     constructor(props) 
     { 
         super(props); 
-        //this.state = { hosts : [] }; 
     } 
-    // componentDidMount() {
-    //     console.log('in mount');
-    //     axios.post(`http://localhost:8081/getHosts`)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             this.setState({hosts: res.data});
-    //         }).catch(err=>{
-    //             console.log(err);
-    //         });
-    // }
+    
     handleSubmit = (fields) => {
             console.log(fields);
             axios.post(`http://localhost:8081/addHost?name=${fields.name}&email=${fields.email}&mobile=${fields.mobile}&address=${fields.address}`)
                 .then(res => {
+                    console.log('in success');
                     console.log(res.data);
                     toast.success(res.data, {
                         position: toast.POSITION.TOP_RIGHT
                     });
                 }).catch(err=>{
-                    console.log(err);
-                    toast.error(err, {
-                        position: toast.POSITION.TOP_LEFT
+                    console.log('in error');
+                    toast.error(err.response.data, {
+                        position: toast.POSITION.TOP_RIGHT
                     });
                 })
     }
@@ -64,9 +55,7 @@ export class Host extends React.Component {
 <div class="container register">
                 <div class="row">
                     <div class="col-md-3 register-left">
-                        <h3>Welcome</h3>
-                        <p>You are 30 seconds away from earning your own money!</p>
-                        <input type="submit" name="" value="Login"/><br/>
+                        <h3>Welcome host</h3>
                     </div>
                     <div class="col-md-9 register-right">
                     <Link to="/"><button class="button" >Visitor</button></Link>
