@@ -4,8 +4,8 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
     auth: {
-      user: 'rg081999@gmail.com',//represents company mail.
-      pass: 'gupta@1999'
+      user: 'managementvisitor5@gmail.com',//represents company mail.
+      pass: 'visitor@11'
     }
 });
 
@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 function passIdMail(newRecord){
   return new Promise(function(resolve, reject) {
     var mailOptions = {
-      from: 'rg081999@gmail.com',//represents company mail.
+      from: 'managementvisitor5@gmail.com',//represents company mail.
       to: newRecord.email,
       subject: 'Pass Id',
       html: `Hi,
@@ -48,7 +48,7 @@ function visitorDetailsToHost(newRecord, Host){
         var hostMail = host.email;
         
         mailOptions = {
-            from: 'rg081999@gmail.com',//company mail
+            from: 'managementvisitor5@gmail.com',//company mail
             to: hostMail,
             subject: 'Visitor Details',
             html: `Hi,
@@ -92,7 +92,7 @@ function visitorDetailsMailToVisitor(visitor, Host){
         else {
           console.log('host' +host);
           var mailOptions = {
-              from: 'rg081999@gmail.com',
+              from: 'managementvisitor5@gmail.com',
               to: visitor.email,
               subject: 'Visiting Details',
               html: `Hi,
