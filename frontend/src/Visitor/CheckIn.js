@@ -80,6 +80,7 @@ export class CheckIn extends React.Component {
                         <div className="form-group">
                             <label htmlFor="mobile">Mobile</label>
                             <Field name="mobile" type="text" className={'form-control' + (errors.mobile && touched.mobile ? ' is-invalid' : '')} />
+                            <div className='message'>Eg: 91xxxxxxxxxx</div>
                             <ErrorMessage name="mobile" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
