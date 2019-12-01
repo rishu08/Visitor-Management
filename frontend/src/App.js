@@ -1,13 +1,37 @@
 import React from 'react';
 import './App.css';
+import { Host } from './Host/Host.js';
+import { Visitor } from './Visitor/Visitor';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+
 
 function App() {
   return (
     <div className="App">
-      <h1 class="text"> I am a ...</h1>
-          <Link to="/visitor"><button class="button" >Visitor</button></Link>
-          <Link to="/host"><button class="button" >Host</button></Link>
+         
+
+<div class="container register">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <h3>Welcome</h3>
+                        <p>You are 30 seconds away from earning your own money!</p>
+                    </div>
+                    <div class="col-md-9 register-right">
+                    <Link to="/host"><button class="button" >Host</button></Link>
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Register as Visitor</h3>
+                                <div class="row register-form">
+                                  <Visitor/>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
        
     </div>
   );

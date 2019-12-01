@@ -38,9 +38,6 @@ export class Host extends React.Component {
     }
     render() {
         return (
-            <div class="host">
-                <Link to="/"><button class="button_in" >Main Page</button></Link>
-                <div class="container" id='mainPage'>
                 <Formik
                 initialValues={{
                     name: '',
@@ -61,35 +58,59 @@ export class Host extends React.Component {
                 })}
                 onSubmit={this.handleSubmit}
                 render={({ errors, status, touched }) => (
-                    <Form>
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <Field name="name" type="text" className={'form-control' + (errors.name && touched.name ? ' is-invalid' : '')} />
-                            <ErrorMessage name="name" component="div" className="invalid-feedback" />
+                    
+
+
+<div class="container register">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <h3>Welcome</h3>
+                        <p>You are 30 seconds away from earning your own money!</p>
+                        <input type="submit" name="" value="Login"/><br/>
+                    </div>
+                    <div class="col-md-9 register-right">
+                    <Link to="/"><button class="button" >Visitor</button></Link>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Register a Host</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                    <Form>
+                                        <div className="form-group">
+                                            <label htmlFor="name">Name</label>
+                                            <Field name="name" type="text" className={'form-control' + (errors.name && touched.name ? ' is-invalid' : '')} />
+                                            <ErrorMessage name="name" component="div" className="invalid-feedback" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="email">Email</label>
+                                            <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
+                                            <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="mobile">Mobile</label>
+                                            <Field name="mobile" type="text" className={'form-control' + (errors.mobile && touched.mobile ? ' is-invalid' : '')} />
+                                            <ErrorMessage name="mobile" component="div" className="invalid-feedback" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="address">Address</label>
+                                            <Field name="address" type="text" className={'form-control' + (errors.address && touched.address ? ' is-invalid' : '')} />
+                                            <ErrorMessage name="address" component="div" className="invalid-feedback" />
+                                        </div>
+                                        <div className="form-group">
+                                            <button type="submit" className="btn btn-primary mr-2">Add Host</button>
+                                        </div>
+                                    </Form>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
-                            <ErrorMessage name="email" component="div" className="invalid-feedback" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="mobile">Mobile</label>
-                            <Field name="mobile" type="text" className={'form-control' + (errors.mobile && touched.mobile ? ' is-invalid' : '')} />
-                            <ErrorMessage name="mobile" component="div" className="invalid-feedback" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="address">Address</label>
-                            <Field name="address" type="text" className={'form-control' + (errors.address && touched.address ? ' is-invalid' : '')} />
-                            <ErrorMessage name="address" component="div" className="invalid-feedback" />
-                        </div>
-                        <div className="form-group">
-                            <button type="submit" className="btn btn-primary mr-2">Add Host</button>
-                        </div>
-                    </Form>
+                    </div>
+                </div>
+
+            </div>
                 )}
             />
-            </div>
-            </div>
         )
     }
 }

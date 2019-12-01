@@ -5,7 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #e3f197;
 
 }
 
@@ -15,11 +14,11 @@ code {
 }
 
 .visitor {
-  background-color: #e3f197;
+  /* background-color: #e3f197; */
 }
 
 .host {
-  background-color: #e3f197;
+  /* background-color: #e3f197; */
 }
 
 .button_in {
