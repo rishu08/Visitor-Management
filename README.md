@@ -35,3 +35,4 @@ Install MongoDB on the machine.
 
 Run MongoDB on your machine.
 
+[![Watch the video]()](https://youtu.be/y6J9aTzPvIc)
