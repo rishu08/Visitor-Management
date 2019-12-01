@@ -30,7 +30,7 @@ app.post('/generatePass', function (req, res) {
 
      newRecord.save(function(error) {
         if (error) {
-          console.log(error);
+          // console.log(error);
           res.status(400).send('Failed at adding data to the server.');
          }
          else {
@@ -38,8 +38,8 @@ app.post('/generatePass', function (req, res) {
           sendInfoForCheckIn(newRecord, Host).then(()=>{
             res.status(201).send('Visitor has been added and information for appointment has been sent to visitor and host');
           }).catch((err)=>{
-            console.log('got error');
-            console.log(err);
+            // console.log('got error');
+            // console.log(err);
             res.status(500).send('Visitor has been added but '+err);
           });
         }
@@ -62,7 +62,6 @@ app.post('/checkOut', function (req, res) {
       sendInfoForCheckOut(visitor, Host).then(()=>{
         res.status(201).send('Checkout done successfully');
       }).catch((err)=>{
-        console.log('got error');
         console.log(err);
         res.status(500).send('Checkout done but '+err);
       });
@@ -72,7 +71,6 @@ app.post('/checkOut', function (req, res) {
 
 //API to get all host
 app.post('/getHosts', function (req, res) {
-  console.log('in here');
   Host.find((error, hosts) => {
     if(error)
     {
@@ -109,7 +107,6 @@ app.post('/addHost', function (req, res) {
             //add host's mobile to twilio Account(Only number added in twilio account can be used to send or receive sms in trial version)
             // await messageService.addHostMobile(newHost);
             addHostMobile(newHost).then(()=>{
-              console.log('no error');
               res.status(201).send('Host successfully added and mobile number verified');
             }).catch((err)=>{
               console.log(err.message);
@@ -154,12 +151,10 @@ const addHostMobile = async (newHost) => {
 
  const sendInfoForCheckOut = async (visitor, Host) => {
   try {
-    console.log('calling this function');
     await mailService.visitorDetailsMailToVisitor(visitor,Host).catch((error)=>{
       console.log(error);
       throw ('Checkout details not mailed to visitor');
     });
-    console.log('completed everything');
   } catch (error) {
     console.log(error);
     throw error;

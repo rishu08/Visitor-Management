@@ -30,7 +30,6 @@ function visitorDetailsToHost(newRecord,Host) {
                 console.log('message sent successfully to host - '+message.sid);
                 resolve();
             }).catch(error => {
-                console.log('in inner');
                 console.log(error);
                 //throw error;
                 reject(error);

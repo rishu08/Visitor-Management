@@ -79,7 +79,6 @@ function visitorDetailsMailToVisitor(visitor, Host){
   return new Promise(function(resolve, reject) { 
     Host.findOne({ _id: visitor.host }, (error, host) => {
         if (error) {
-            console.log('actual error');
             console.log(error);
             //throw new Error(error);
             reject(error);
@@ -90,7 +89,6 @@ function visitorDetailsMailToVisitor(visitor, Host){
           reject('No host found');
         }
         else {
-          console.log('host' +host);
           var mailOptions = {
               from: 'managementvisitor5@gmail.com',
               to: visitor.email,
