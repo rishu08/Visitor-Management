@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import 'react-toastify/dist/ReactToastify.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,9 +10,11 @@ import * as serviceWorker from './serviceWorker';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import { Visitor } from './Visitor/Visitor.js';
 import { Host } from './Host/Host.js';
+import { ToastContainer } from 'react-toastify';
 
 const routing = (
     <Router>
+      <ToastContainer/>
       <div>
         <Route exact path="/" component={App} />
         <Route path="/visitor" component={Visitor} />

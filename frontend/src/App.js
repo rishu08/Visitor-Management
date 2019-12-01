@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
-import { Visitor } from './Visitor/Visitor.js';
-import { Host } from './Host/Host.js';
 
 function App() {
   return (

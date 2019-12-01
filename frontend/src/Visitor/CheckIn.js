@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export class CheckIn extends React.Component {
     constructor(props) 
@@ -13,20 +14,28 @@ export class CheckIn extends React.Component {
         console.log('in mount');
         axios.post(`http://localhost:8081/getHosts`)
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
                 this.setState({hosts: res.data});
             }).catch(err=>{
                 console.log(err);
+                toast.error("Error in getting hosts- "+err, {
+                    position: toast.POSITION.TOP_LEFT
+                });
             });
     }
     handleSubmit = (fields) => {
-            console.log(fields);
+            // console.log(fields);
             axios.post(`http://localhost:8081/generatePass?firstName=${fields.firstName}&lastName=${fields.lastName}&email=${fields.email}&mobile=${fields.mobile}&host=${fields.host}`)
                 .then(res => {
-                    console.log(res);
                     console.log(res.data);
+                    toast.success(res.data, {
+                        position: toast.POSITION.TOP_RIGHT
+                      });
                 }).catch(err=>{
                     console.log(err);
+                    toast.error("Error in generating pass- "+err, {
+                        position: toast.POSITION.TOP_LEFT
+                    });
                 })
     }
     render() {

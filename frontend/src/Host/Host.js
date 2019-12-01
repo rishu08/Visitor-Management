@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export class Host extends React.Component {
     constructor(props) 
@@ -10,24 +11,29 @@ export class Host extends React.Component {
         super(props); 
         //this.state = { hosts : [] }; 
     } 
-    componentDidMount() {
-        console.log('in mount');
-        axios.post(`http://localhost:8081/getHosts`)
-            .then(res => {
-                console.log(res.data);
-                this.setState({hosts: res.data});
-            }).catch(err=>{
-                console.log(err);
-            });
-    }
+    // componentDidMount() {
+    //     console.log('in mount');
+    //     axios.post(`http://localhost:8081/getHosts`)
+    //         .then(res => {
+    //             console.log(res.data);
+    //             this.setState({hosts: res.data});
+    //         }).catch(err=>{
+    //             console.log(err);
+    //         });
+    // }
     handleSubmit = (fields) => {
             console.log(fields);
             axios.post(`http://localhost:8081/addHost?name=${fields.name}&email=${fields.email}&mobile=${fields.mobile}&address=${fields.address}`)
                 .then(res => {
-                    console.log(res);
                     console.log(res.data);
+                    toast.success(res.data, {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
                 }).catch(err=>{
                     console.log(err);
+                    toast.error(err, {
+                        position: toast.POSITION.TOP_LEFT
+                    });
                 })
     }
     render() {

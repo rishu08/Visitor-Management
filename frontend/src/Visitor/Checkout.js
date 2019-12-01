@@ -2,15 +2,23 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export class CheckOut extends React.Component {
     handleSubmit = (fields) => {
             console.log(fields);
             axios.post(`http://localhost:8081/checkOut?pass=${fields.pass}`)
                 .then(res => {
-                    console.log(res);
                     console.log(res.data);
-                })
+                    toast.success(res.data, {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                }).catch(err=>{
+                    console.log(err);
+                    toast.error("Error in checking out- "+err, {
+                        position: toast.POSITION.TOP_LEFT
+                    });
+                });
     }
     render() {
         return (
